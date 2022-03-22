@@ -49,18 +49,24 @@ export class App extends Component {
     super(props);
     this.state = {
       data: "Apple Pie",
-      testData: "",
+      playRawData: [],
+      gameScenes: [
+        {
+          act: "",
+          scene: "",
+          synposis: "",
+        },
+      ],
     };
   }
 
-  handleClick = async (event) => {
+  handleGetScenes = async (event) => {
     event.preventDefault();
-
     //fetch the data on the given URL
     const another = await fetch(
-      "https://www.folgerdigitaltexts.org/Tmp/synopsis"
+      "https://www.folgerdigitaltexts.org/Ham/synopsis"
     )
-    //Turn that response into text
+      //Turn that response into text
       .then((response) => {
         return response.text();
       })
@@ -68,25 +74,40 @@ export class App extends Component {
       .then((data) => {
         const parser = new DOMParser();
         const parsedDoc = parser.parseFromString(data, "text/html");
-        return parsedDoc
+        return parsedDoc;
       })
       //Gather all of the 'p' tags on the document, put them in an array
       .then((parsedDoc) => {
-        return Array.from(parsedDoc.getElementsByTagName("p"));
-      })
+        const newArr = Array.from(parsedDoc.getElementsByTagName("p"));
+        this.setState({
+          playRawData: newArr,
+        });
+      });
+  };
 
-      console.log(another)
-
-      for (const pTag of another) {
-        console.log(pTag.textContent)
+  handleStripScenes = () => {
+    const newGameScenes = [];
+    const strippedData = this.state.playRawData;
+    const newStrip = strippedData.map((ele) => {
+      const currentSceneText = ele.textContent;
+      const splitThisScene = currentSceneText.split(":");
+      if (splitThisScene.length < 2) {
+        return;
+      } else {
+        const numMatch = /[0-9]/g;
+        const getSceneAct = splitThisScene[0].match(numMatch);
+        const newGameScene = {
+          act: getSceneAct[0],
+          scene: getSceneAct[1],
+          synposis: splitThisScene[1].trim(),
+        };
+        newGameScenes.push(newGameScene);
       }
+    });
 
-    // const testTags = Array.from(await doc1.getElementsByTagName("p"));
-
-    // console.log(testTags);
-
-    // return testTags;
-    // console.log(another)
+    this.setState({
+      gameScenes: newGameScenes,
+    });
   };
 
   render() {
@@ -94,8 +115,11 @@ export class App extends Component {
       <div className="App">
         This is your {this.state.data}
         <div>
-          <Button variant="outline-primary" onClick={this.handleClick}>
-            Primary Button
+          <Button variant="outline-primary" onClick={this.handleGetScenes}>
+            Get all scenes from play
+          </Button>
+          <Button variant="outline-secondary" onClick={this.handleStripScenes}>
+            Get all scenes from play
           </Button>
         </div>
         <p>{this.state.testData}</p>
