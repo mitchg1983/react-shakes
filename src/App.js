@@ -1,7 +1,10 @@
 import "./App.css";
-import "bootstrap/dist/css/bootstrap.min.css";
+// import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
+import Dropdown from "react-bootstrap/Dropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+
 
 const playCodes = {
   AWW: "All's Well That Ends Well",
@@ -48,8 +51,9 @@ export class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      data: "Apple Pie",
+      data: "Shakespeare React App",
       playRawData: [],
+      dropTest: "",
       gameScenes: [
         {
           act: "",
@@ -60,6 +64,8 @@ export class App extends Component {
     };
   }
 
+  //TODO - build the URL here from the input table provided to user
+  //This function will return the array of raw scene & HTML data
   handleGetScenes = async (event) => {
     event.preventDefault();
     //fetch the data on the given URL
@@ -85,6 +91,10 @@ export class App extends Component {
       });
   };
 
+  //This function will take in the raw scene & HTML data and create a new array
+  //From each element in the input array, an object will be created that contains
+  //the Act number, Scene number and corresponding Synposis
+  //The returned array, will contain one new object for each scene in the play
   handleStripScenes = () => {
     const newGameScenes = [];
     const strippedData = this.state.playRawData;
@@ -104,11 +114,14 @@ export class App extends Component {
         newGameScenes.push(newGameScene);
       }
     });
-
     this.setState({
       gameScenes: newGameScenes,
     });
   };
+
+  handleSelect = (event) => {
+    console.log(event);
+  }
 
   render() {
     return (
@@ -122,8 +135,43 @@ export class App extends Component {
             Get all scenes from play
           </Button>
         </div>
-        <p>{this.state.testData}</p>
+        <div className="game-area m-2">
+
+        <Dropdown>
+        <Dropdown.Toggle variant="success">
+          Open Menu
+        </Dropdown.Toggle>
+        <Dropdown.Menu>
+          <Dropdown.Item href="#">
+            Home Page
+          </Dropdown.Item>
+          <Dropdown.Item href="#">
+            Settings
+          </Dropdown.Item>
+          <Dropdown.Item href="#">
+            Logout
+          </Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
+          
+        </div>
+
+        <div>
+        <DropdownButton
+      title="Dropdown right"
+      id="dropdown-menu-align-right"
+      onSelect={this.handleSelect}
+        >
+              <Dropdown.Item eventKey="first option">option-1</Dropdown.Item>
+              <Dropdown.Item eventKey="option-2">option-2</Dropdown.Item>
+              <Dropdown.Item eventKey="option-3">option 3</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
+      </DropdownButton>
+        </div>
+
       </div>
+
     );
   }
 }

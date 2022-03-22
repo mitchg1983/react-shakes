@@ -1,15 +1,18 @@
 .App {
-  text-align: center;
-  background-color: rgb(240, 240, 240);
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+
+}
+
+.game-area {
+  border: 1px solid red;
+  width: 80vw;
+  height: 40vh;
+    position: relative;
+}
+
+.drop-butt {
+  position: relative;
+
 }
