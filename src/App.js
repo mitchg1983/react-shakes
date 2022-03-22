@@ -1,51 +1,7 @@
 import "./App.css";
-// import "bootstrap/dist/css/bootstrap.min.css";
 import React, { Component } from "react";
 import Button from "react-bootstrap/Button";
-import Dropdown from "react-bootstrap/Dropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
-
-
-const playCodes = {
-  AWW: "All's Well That Ends Well",
-  Ant: "Antony and Cleopatra",
-  AYL: "As You Like It",
-  Err: "The Comedy of Errors",
-  Cor: "Coriolanus",
-  Cym: "Cymbeline",
-  Ham: "Hamlet",
-  "1H4": "Henry IV, Part 1",
-  "2H4": "Henry IV, Part 2",
-  H5: "Henry V",
-  "1H6": "Henry VI, Part 1",
-  "2H6": "Henry VI, Part 2",
-  "3H6": "Henry VI, Part 3",
-  H8: "Henry VIII",
-  JC: "Julius Caesar",
-  Jn: "King John",
-  Lr: "King Lear",
-  LLL: "Love's Labor's Lost",
-  Mac: "Macbeth",
-  MM: "Measure for Measure",
-  MV: "The Merchant of Venice",
-  Wiv: "The Merry Wives of Windsor",
-  MND: "A Midsummer Night's Dream",
-  Ado: "Much Ado About Nothing",
-  Oth: "Othello",
-  Per: "Pericles",
-  R2: "Richard II",
-  R3: "Richard III",
-  Rom: "Romeo and Juliet",
-  Shr: "The Taming of the Shrew",
-  Tmp: "The Tempest",
-  Tim: "Timon of Athens",
-  Tit: "Titus Andronicus",
-  Tro: "Troilus and Cressida",
-  TN: "Twelfth Night",
-  TGV: "Two Gentlemen of Verona",
-  TNK: "Two Noble Kinsmen",
-  WT: "The Winter's Tale",
-};
+import ButtonSelectPlay from "./components";
 
 export class App extends Component {
   constructor(props) {
@@ -119,10 +75,6 @@ export class App extends Component {
     });
   };
 
-  handleSelect = (event) => {
-    console.log(event);
-  }
-
   render() {
     return (
       <div className="App">
@@ -136,42 +88,17 @@ export class App extends Component {
           </Button>
         </div>
         <div className="game-area m-2">
-
-        <Dropdown>
-        <Dropdown.Toggle variant="success">
-          Open Menu
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item href="#">
-            Home Page
-          </Dropdown.Item>
-          <Dropdown.Item href="#">
-            Settings
-          </Dropdown.Item>
-          <Dropdown.Item href="#">
-            Logout
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-          
+          <div className="reveal-box">
+            <div className="game-act">Act? {this.state.gameScenes[0].synopsis} </div>
+            <div className="scene-act">Scene?</div>
+          </div>
+          <div className="synopsis-field">
+            <div className="syn-text">Synopsis goes here</div>
+          </div>
         </div>
-
-        <div>
-        <DropdownButton
-      title="Dropdown right"
-      id="dropdown-menu-align-right"
-      onSelect={this.handleSelect}
-        >
-              <Dropdown.Item eventKey="first option">option-1</Dropdown.Item>
-              <Dropdown.Item eventKey="option-2">option-2</Dropdown.Item>
-              <Dropdown.Item eventKey="option-3">option 3</Dropdown.Item>
-              <Dropdown.Divider />
-              <Dropdown.Item eventKey="some link">some link</Dropdown.Item>
-      </DropdownButton>
-        </div>
-
+        <div></div>
+        <ButtonSelectPlay data={this.state}/>
       </div>
-
     );
   }
 }
