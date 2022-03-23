@@ -11,10 +11,12 @@ export class App extends Component {
       gameScenes: [],
       playSelected: false,
       targetPlayCode: "",
+      playerScore: 0,
+      playSelectText: "Select a New Play",
       activeQuestion: {
         act: "testAct",
         scene: "testScene",
-        synopsis: "testSynopsis",
+        synopsis: "Synopsis of your random scene will appear here...",
       },
       userGuess: {
         act: "",
@@ -58,22 +60,23 @@ export class App extends Component {
             newGameScenes.push(newGameScene);
           }
         });
+        this.setState({
+          gameScenes: newGameScenes,
+        });
+      })
+      .then(() => {
+        const { gameScenes } = this.state;
+        function getRandomInt(cap) {
+          return Math.floor(Math.random() * cap);
+        }
+        this.setState({
+          activeQuestion: gameScenes[getRandomInt(gameScenes.length)],
+        });
       });
-    this.setState({
-      gameScenes: newGameScenes,
-    });
   };
 
   //Will pick a random scene from the selected play
-  handleDoSomething = async () => {
-    const { gameScenes } = this.state;
-    function getRandomInt(cap) {
-      return Math.floor(Math.random() * cap);
-    }
-    this.setState({
-      activeQuestion: gameScenes[getRandomInt(gameScenes.length)],
-    });
-  };
+  handleDoSomething = async () => {};
 
   //User input to select play
   handlePlaySelect = (event) => {
@@ -109,6 +112,10 @@ export class App extends Component {
 
   correctGuess = () => {
     console.log("You got a correct match!");
+    const { playerScore } = this.state;
+    this.setState({
+      playerScore: playerScore + 1,
+    });
   };
 
   wrongGuess = () => {
@@ -129,55 +136,11 @@ export class App extends Component {
     return (
       <div className="App">
         This is your Shakespeare react app
-        <div>
-          <Button variant="outline-primary" onClick={this.handleGetScenes}>
-            Get all scenes from play
-          </Button>
-          <Button variant="secondary" onClick={this.handleDoSomething}>
-            Display scene to guess
-          </Button>
-        </div>
-        <div className="game-area m-2">
-          <div className="reveal-box">
-            <div className="game-act">
-              <DropdownButton
-                title="Guess the Act!"
-                id="button-act-guess"
-                onSelect={this.handleActGuess}
-              >
-                <Dropdown.Item eventKey="1">I</Dropdown.Item>
-                <Dropdown.Item eventKey="2">II</Dropdown.Item>
-                <Dropdown.Item eventKey="3">III</Dropdown.Item>
-                <Dropdown.Item eventKey="4">IV</Dropdown.Item>
-                <Dropdown.Item eventKey="5">V</Dropdown.Item>
-              </DropdownButton>
-              The answer is...
-              <p className="act-answer"> {this.state.activeQuestion.act}</p>
-            </div>
-            <div className="scene-act">
-              <DropdownButton
-                title="Guess the Scene!"
-                id="button-scene-guess"
-                onSelect={this.handleSceneGuess}
-              >
-                <Dropdown.Item eventKey="1">I</Dropdown.Item>
-                <Dropdown.Item eventKey="2">II</Dropdown.Item>
-                <Dropdown.Item eventKey="3">III</Dropdown.Item>
-                <Dropdown.Item eventKey="4">IV</Dropdown.Item>
-                <Dropdown.Item eventKey="5">V</Dropdown.Item>
-              </DropdownButton>
-              The answer is...
-              <p>{this.state.activeQuestion.scene}</p>
-            </div>
-          </div>
-          <div className="synopsis-field">
-            <div className="syn-text">{this.state.activeQuestion.synopsis}</div>
-          </div>
-        </div>
-        <div className="bot-buttons">
+        <div className="top-buttons">
           <DropdownButton
+            variant="outline-primary"
             title="Select a Play"
-            id="dropdown-menu-align-right"
+            // id="dropdown-menu-align-right"
             onSelect={this.handlePlaySelect}
           >
             <Dropdown.Item eventKey="AWW">
@@ -229,10 +192,47 @@ export class App extends Component {
             <Dropdown.Item eventKey="TNK">Two Noble Kinsmen</Dropdown.Item>
             <Dropdown.Item eventKey="WT">The Winter's Tale</Dropdown.Item>
           </DropdownButton>
+          <Button variant="primary" onClick={this.handleGetScenes}>
+            Get Your Scene
+          </Button>
+        </div>
+        <div className="game-area m-5 p-5">
 
+          <div className="synopsis-field">
+            <div className="mb-5">{this.state.activeQuestion.synopsis}</div>
+          </div>
+          <div className="act-scene-guess-box">
+            <DropdownButton
+              title="Guess the Act!"
+              id="button-act-guess"
+              onSelect={this.handleActGuess}
+            >
+              <Dropdown.Item eventKey="1">I</Dropdown.Item>
+              <Dropdown.Item eventKey="2">II</Dropdown.Item>
+              <Dropdown.Item eventKey="3">III</Dropdown.Item>
+              <Dropdown.Item eventKey="4">IV</Dropdown.Item>
+              <Dropdown.Item eventKey="5">V</Dropdown.Item>
+            </DropdownButton>
+              <DropdownButton
+                title="Guess the Scene!"
+                id="button-scene-guess"
+                onSelect={this.handleSceneGuess}
+              >
+                <Dropdown.Item eventKey="1">I</Dropdown.Item>
+                <Dropdown.Item eventKey="2">II</Dropdown.Item>
+                <Dropdown.Item eventKey="3">III</Dropdown.Item>
+                <Dropdown.Item eventKey="4">IV</Dropdown.Item>
+                <Dropdown.Item eventKey="5">V</Dropdown.Item>
+              </DropdownButton>
+          </div>
+        </div>
+        <div className="bot-buttons">
           <Button variant="danger" onClick={this.handleMakeGuess}>
             Make your guess!
           </Button>
+        </div>
+        <div className="score-block">
+          Your current player score is: {this.state.playerScore}
         </div>
       </div>
     );

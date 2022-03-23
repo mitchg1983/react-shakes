@@ -20,7 +20,7 @@
 
 }
 
-.reveal-box {
+.act-scene-guess-box {
   display: flex;
   justify-content: space-around;
 }
@@ -34,4 +34,11 @@
   display: flex;
   justify-content: space-around;
   width:80vw;
+}
+
+.top-buttons {
+  display: flex;
+  width:40vw;
+  justify-content: space-around;
+
 }
