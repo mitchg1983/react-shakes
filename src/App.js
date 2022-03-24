@@ -135,7 +135,9 @@ export class App extends Component {
   render() {
     return (
       <div className="App">
-        This is your Shakespeare react app
+        <div className="board m-5">
+                  This is your Shakespeare react app
+
         <div className="top-buttons">
           <DropdownButton
             variant="outline-primary"
@@ -233,6 +235,7 @@ export class App extends Component {
         </div>
         <div className="score-block">
           Your current player score is: {this.state.playerScore}
+        </div>
         </div>
       </div>
     );

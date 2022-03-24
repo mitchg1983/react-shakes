@@ -1,22 +1,18 @@
 .App {
+  height: 100vh;
+  width: 100vw;
   display: flex;
-  flex-direction: column;
   align-items: center;
-
+  justify-content: center;
 }
 
 .game-area {
   border: 1px solid red;
-  width: 80vw;
+  width: 80%;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-
-}
-
-.drop-butt {
-  position: relative;
 
 }
 
@@ -33,12 +29,61 @@
 .bot-buttons {
   display: flex;
   justify-content: space-around;
-  width:80vw;
+  width: 80%;
 }
 
 .top-buttons {
   display: flex;
-  width:40vw;
+  width:40%;
   justify-content: space-around;
 
+}
+
+/* .board {
+    border: 1px solid green;
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(128, 128, 128, 0.7);
+    border-radius: 50px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  
+  } */
+
+body {
+	background: linear-gradient(-45deg, #ee765279, #e73c7e79, #23a5d579, #23d5ab79);
+	background-size: 400% 400%;
+	animation: gradient 15s ease infinite;
+	height: 100vh;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+
+
+.board {
+  align-items: center;
+  appearance: none;
+  background-color: #FCFCFD;
+  border-radius: 50px;
+  box-shadow: rgba(45, 35, 66, 0.4) 0 2px 4px,rgba(45, 35, 66, 0.3) 0 7px 13px -3px,#D6D6E7 0 -3px 0 inset;
+  box-sizing: border-box;
+  color: #36395A;
+  display: flex;
+  flex-direction: column;
+  font-family: "JetBrains Mono",monospace;
+  height: 70vh;
+  justify-content: center;
+  white-space: nowrap;
 }
