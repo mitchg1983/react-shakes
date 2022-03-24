@@ -75,9 +75,6 @@ export class App extends Component {
       });
   };
 
-  //Will pick a random scene from the selected play
-  handleDoSomething = async () => {};
-
   //User input to select play
   handlePlaySelect = (event) => {
     this.setState({
@@ -122,6 +119,7 @@ export class App extends Component {
     console.log("You got a WRONG match...");
   };
 
+  //Compares user input to the active questions stored in state
   handleMakeGuess = () => {
     const { activeQuestion, userGuess } = this.state;
     if (
@@ -136,85 +134,91 @@ export class App extends Component {
     return (
       <div className="App">
         <div className="board m-5">
-                  This is your Shakespeare react app
-
-        <div className="top-buttons">
-          <DropdownButton
-            variant="outline-primary"
-            title="Select a Play"
-            // id="dropdown-menu-align-right"
-            onSelect={this.handlePlaySelect}
-          >
-            <Dropdown.Item eventKey="AWW">
-              All's Well That Ends Well
-            </Dropdown.Item>
-            <Dropdown.Item eventKey="Ant">Antony and Cleopatra</Dropdown.Item>
-            <Dropdown.Item eventKey="AYL">As You Like It</Dropdown.Item>
-            <Dropdown.Item eventKey="Err">The Comedy of Errors</Dropdown.Item>
-            <Dropdown.Item eventKey="Cor">Coriolanus</Dropdown.Item>
-            <Dropdown.Item eventKey="Cym">Cymbeline</Dropdown.Item>
-            <Dropdown.Item eventKey="Ham">Hamlet</Dropdown.Item>
-            <Dropdown.Item eventKey="1H4">Henry IV, Part 1</Dropdown.Item>
-            <Dropdown.Item eventKey="2H4">Henry IV, Part 2</Dropdown.Item>
-            <Dropdown.Item eventKey="H5">Henry V</Dropdown.Item>
-            <Dropdown.Item eventKey="1H6">Henry VI, Part 1</Dropdown.Item>
-            <Dropdown.Item eventKey="2H6">Henry VI, Part 2</Dropdown.Item>
-            <Dropdown.Item eventKey="3H6">Henry VI, Part 3</Dropdown.Item>
-            <Dropdown.Item eventKey="H8">Henry VIII</Dropdown.Item>
-            <Dropdown.Item eventKey="JC">Julius Caesar</Dropdown.Item>
-            <Dropdown.Item eventKey="Jn">King John</Dropdown.Item>
-            <Dropdown.Item eventKey="Lr">King Lear</Dropdown.Item>
-            <Dropdown.Item eventKey="LLL">Love's Labor's Lost</Dropdown.Item>
-            <Dropdown.Item eventKey="Mac">Macbeth</Dropdown.Item>
-            <Dropdown.Item eventKey="MM">Measure for Measure</Dropdown.Item>
-            <Dropdown.Item eventKey="MV">The Merchant of Venice</Dropdown.Item>
-            <Dropdown.Item eventKey="Wiv">
-              The Merry Wives of Windsor
-            </Dropdown.Item>
-            <Dropdown.Item eventKey="MND">
-              A Midsummer Night's Dream
-            </Dropdown.Item>
-            <Dropdown.Item eventKey="Ado">Much Ado About Nothing</Dropdown.Item>
-            <Dropdown.Item eventKey="Oth">Othello</Dropdown.Item>
-            <Dropdown.Item eventKey="Per">Pericles</Dropdown.Item>
-            <Dropdown.Item eventKey="R2">Richard II</Dropdown.Item>
-            <Dropdown.Item eventKey="R3">Richard III</Dropdown.Item>
-            <Dropdown.Item eventKey="Rom">Romeo and Juliet</Dropdown.Item>
-            <Dropdown.Item eventKey="Shr">
-              The Taming of the Shrew
-            </Dropdown.Item>
-            <Dropdown.Item eventKey="Tmp">The Tempest</Dropdown.Item>
-            <Dropdown.Item eventKey="Tim">Timon of Athens</Dropdown.Item>
-            <Dropdown.Item eventKey="Tit">Titus Andronicus</Dropdown.Item>
-            <Dropdown.Item eventKey="Tro">Troilus and Cressida</Dropdown.Item>
-            <Dropdown.Item eventKey="TN">Twelfth Night</Dropdown.Item>
-            <Dropdown.Item eventKey="TGV">
-              Two Gentlemen of Verona
-            </Dropdown.Item>
-            <Dropdown.Item eventKey="TNK">Two Noble Kinsmen</Dropdown.Item>
-            <Dropdown.Item eventKey="WT">The Winter's Tale</Dropdown.Item>
-          </DropdownButton>
-          <Button variant="primary" onClick={this.handleGetScenes}>
-            Get Your Scene
-          </Button>
-        </div>
-        <div className="game-area m-5 p-5">
-
-          <div className="synopsis-field">
-            <div className="mb-5">{this.state.activeQuestion.synopsis}</div>
-          </div>
-          <div className="act-scene-guess-box">
+          <div className="top-buttons">
             <DropdownButton
-              title="Guess the Act!"
-              id="button-act-guess"
-              onSelect={this.handleActGuess}
+              variant="info"
+              className="drop-button"
+              title="Select a Play"
+              // id="dropdown-menu-align-right"
+              onSelect={this.handlePlaySelect}
             >
-              <Dropdown.Item eventKey="1">I</Dropdown.Item>
-              <Dropdown.Item eventKey="2">II</Dropdown.Item>
-              <Dropdown.Item eventKey="3">III</Dropdown.Item>
-              <Dropdown.Item eventKey="4">IV</Dropdown.Item>
-              <Dropdown.Item eventKey="5">V</Dropdown.Item>
+              <Dropdown.Item eventKey="AWW">
+                All's Well That Ends Well
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Ant">Antony and Cleopatra</Dropdown.Item>
+              <Dropdown.Item eventKey="AYL">As You Like It</Dropdown.Item>
+              <Dropdown.Item eventKey="Err">The Comedy of Errors</Dropdown.Item>
+              <Dropdown.Item eventKey="Cor">Coriolanus</Dropdown.Item>
+              <Dropdown.Item eventKey="Cym">Cymbeline</Dropdown.Item>
+              <Dropdown.Item eventKey="Ham">Hamlet</Dropdown.Item>
+              <Dropdown.Item eventKey="1H4">Henry IV, Part 1</Dropdown.Item>
+              <Dropdown.Item eventKey="2H4">Henry IV, Part 2</Dropdown.Item>
+              <Dropdown.Item eventKey="H5">Henry V</Dropdown.Item>
+              <Dropdown.Item eventKey="1H6">Henry VI, Part 1</Dropdown.Item>
+              <Dropdown.Item eventKey="2H6">Henry VI, Part 2</Dropdown.Item>
+              <Dropdown.Item eventKey="3H6">Henry VI, Part 3</Dropdown.Item>
+              <Dropdown.Item eventKey="H8">Henry VIII</Dropdown.Item>
+              <Dropdown.Item eventKey="JC">Julius Caesar</Dropdown.Item>
+              <Dropdown.Item eventKey="Jn">King John</Dropdown.Item>
+              <Dropdown.Item eventKey="Lr">King Lear</Dropdown.Item>
+              <Dropdown.Item eventKey="LLL">Love's Labor's Lost</Dropdown.Item>
+              <Dropdown.Item eventKey="Mac">Macbeth</Dropdown.Item>
+              <Dropdown.Item eventKey="MM">Measure for Measure</Dropdown.Item>
+              <Dropdown.Item eventKey="MV">
+                The Merchant of Venice
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Wiv">
+                The Merry Wives of Windsor
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="MND">
+                A Midsummer Night's Dream
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Ado">
+                Much Ado About Nothing
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Oth">Othello</Dropdown.Item>
+              <Dropdown.Item eventKey="Per">Pericles</Dropdown.Item>
+              <Dropdown.Item eventKey="R2">Richard II</Dropdown.Item>
+              <Dropdown.Item eventKey="R3">Richard III</Dropdown.Item>
+              <Dropdown.Item eventKey="Rom">Romeo and Juliet</Dropdown.Item>
+              <Dropdown.Item eventKey="Shr">
+                The Taming of the Shrew
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="Tmp">The Tempest</Dropdown.Item>
+              <Dropdown.Item eventKey="Tim">Timon of Athens</Dropdown.Item>
+              <Dropdown.Item eventKey="Tit">Titus Andronicus</Dropdown.Item>
+              <Dropdown.Item eventKey="Tro">Troilus and Cressida</Dropdown.Item>
+              <Dropdown.Item eventKey="TN">Twelfth Night</Dropdown.Item>
+              <Dropdown.Item eventKey="TGV">
+                Two Gentlemen of Verona
+              </Dropdown.Item>
+              <Dropdown.Item eventKey="TNK">Two Noble Kinsmen</Dropdown.Item>
+              <Dropdown.Item eventKey="WT">The Winter's Tale</Dropdown.Item>
             </DropdownButton>
+            <Button
+              variant="success"
+              className="drop-button"
+              onClick={this.handleGetScenes}
+            >
+              Get Your Scene
+            </Button>
+          </div>
+          <div className="game-area m-5 p-5">
+            <div className="synopsis-field">
+              <div className="mb-5">{this.state.activeQuestion.synopsis}</div>
+            </div>
+            <div className="act-scene-guess-box">
+              <DropdownButton
+                title="Guess the Act!"
+                id="button-act-guess"
+                onSelect={this.handleActGuess}
+              >
+                <Dropdown.Item eventKey="1">I</Dropdown.Item>
+                <Dropdown.Item eventKey="2">II</Dropdown.Item>
+                <Dropdown.Item eventKey="3">III</Dropdown.Item>
+                <Dropdown.Item eventKey="4">IV</Dropdown.Item>
+                <Dropdown.Item eventKey="5">V</Dropdown.Item>
+              </DropdownButton>
               <DropdownButton
                 title="Guess the Scene!"
                 id="button-scene-guess"
@@ -226,16 +230,20 @@ export class App extends Component {
                 <Dropdown.Item eventKey="4">IV</Dropdown.Item>
                 <Dropdown.Item eventKey="5">V</Dropdown.Item>
               </DropdownButton>
+            </div>
           </div>
-        </div>
-        <div className="bot-buttons">
-          <Button variant="danger" onClick={this.handleMakeGuess}>
-            Make your guess!
-          </Button>
-        </div>
-        <div className="score-block">
-          Your current player score is: {this.state.playerScore}
-        </div>
+          <div className="bot-buttons">
+            <Button
+              variant="danger"
+              className="drop-button"
+              onClick={this.handleMakeGuess}
+            >
+              CLICK HERE - Make Your Guess
+            </Button>
+          </div>
+          <div className="score-block">
+            Your current player score is: {this.state.playerScore}
+          </div>
         </div>
       </div>
     );
